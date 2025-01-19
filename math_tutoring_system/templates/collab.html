@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaboration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+{%include 'header.html'%}
+<body class="bg-gray-100">
+    <div class="container mx-auto py-12">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Collaboration Messages</h1>
+
+        <!-- Display received messages -->
+        <div class="bg-white p-8 rounded-lg shadow-lg mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Messages You've Received</h2>
+            {% if received_messages %}
+                <ul>
+                    {% for message in received_messages %}
+                        <li class="mb-4">
+                            <p class="text-lg text-gray-700"><strong>{{ message.sender.username }}:</strong> {{ message.content }}</p>
+                            <p class="text-sm text-gray-500">{{ message.timestamp }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No messages received yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Display sent messages -->
+        <div class="bg-white p-8 rounded-lg shadow-lg mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Messages You've Sent</h2>
+            {% if sent_messages %}
+                <ul>
+                    {% for message in sent_messages %}
+                        <li class="mb-4">
+                            <p class="text-lg text-gray-700"><strong>To {{ message.recipient.username }}:</strong> {{ message.content }}</p>
+                            <p class="text-sm text-gray-500">{{ message.timestamp }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No messages sent yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Send a Message</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="recipient" class="block text-sm font-medium text-gray-700">Select Recipient</label>
+                    <select id="recipient" name="recipient" class="mt-1 p-2 w-full border rounded-lg" required>
+                        <option value="" disabled selected>Select a user</option>
+                        {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="content" class="block text-sm font-medium text-gray-700">Message Content</label>
+                    <textarea id="content" name="content" class="mt-1 p-2 w-full border rounded-lg" required></textarea>
+                </div>
+                {% if error %}
+                    <p class="text-red-500">{{ error }}</p>
+                {% endif %}
+                <div>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Send Message</button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</body>
+{%include 'footer.html'%}
+</html>

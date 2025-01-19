@@ -1,0 +1,26 @@
+{% extends "Dashboard.html" %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+    <title>{% block title %}Math Tutoring System{% endblock %}</title>
+    {% tailwind_css %}
+
+</head>
+<body class="bg-gray-100">
+    {% block content %}{% endblock %}
+    {% if messages %}
+    <div class="fixed top-0 right-0 m-4">
+        {% for message in messages %}
+            <div class="bg-red-500 text-white text-sm p-2 rounded">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+</body>
+</html>
+

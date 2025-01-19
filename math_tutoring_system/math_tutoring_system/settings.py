@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-b4404hpkc2$g+8&(m)q#=(ety+_ckmzq2(6v^ws44wgx%gv!ws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rizwantutoring-5sg7fdsi7-rizwans-projects-883b57a3.vercel.app','127.0.0.1','localhost']
 
 TAILWIND_APP_NAME = 'theme'
 # settings.py
